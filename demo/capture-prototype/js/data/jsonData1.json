@@ -1,0 +1,148 @@
+{
+  "agent": {
+    "gender": "MALE",
+    "street": "",
+    "name": "default",
+    "surname": "default",
+    "email": "default@fake.com",
+    "telf": "",
+    "mobile": ""
+  },
+  "visibility": {
+    "showPlayerIcons": true,
+    "showExposeIcons": true,
+    "showWelcomeWindow": false,
+    "showLogo": true,
+    "showContactForm": true,
+    "showContact": true,
+    "showTakeScreens": false,
+    "showMeasurementTool": false,
+    "showShare": true,
+    "disableShare": false,
+    "showSlider": true,
+    "showLangSwitch": true,
+    "showFloorPlan": true,
+    "showVr": true,
+    "showRotate": true,
+    "showFs": true,
+    "showMap": true,
+    "showExposeInfo": true,
+    "showInfopointsList": true,
+    "showWelcomeWindowNew": true,
+    "allowPrivateRooms": true,
+    "allowPresetViewEditor": true,
+    "showFloorPlanInfo": true,
+    "infopointsEditor": true,
+    "showShareEmail": true,
+    "showShareFacebookSingle": true,
+    "startInVR": false,
+    "unlimitZoom": false,
+    "trackDisable": false,
+    "showPoweredBy": true,
+    "showBottomLine": true,
+    "zoomOnMouseWheel": true,
+    "floorplanCreationMode": false,
+    "use3DPlayer": true
+  },
+  "styles": {
+    "mainColor": {
+      "r": 0.0,
+      "g": 137.0,
+      "b": 204.0
+    },
+    "logoUrl": "https://sandy-images.immoviewer.com/logos/360_Logo_blau_250_88.png",
+    "hotspotLogo": "https://sandy-images.immoviewer.com/logos/hotspot_clipnow.png",
+    "tripodCoverLogo": "https://sandy-images.immoviewer.com/logos/logo_360clipnow_bg_350.png"
+  },
+  "tour": {
+    "id": "__default__",
+    "useCubic": false,
+    "activeRoom": {},
+    "name": "Example",
+    "rooms": {
+      "srv_jxszrw978b.JPG": {
+        "type": "PANORAMA",
+        "name": "Outside",
+        "filename": "default.JPG",
+        "url": "https://img.immoviewer.com/items/mnikitin/5b61b269c9e77c0055643d3b/Tour/editor-copy/srv_457w41el68.JPG",
+        "urlMobile": "/images/pano/grid.png",
+        "thumbnail": "/images/pano/grid.png",
+        "plan": -100,
+        "isSequence": false,
+        "cubePatternDesktop": "/images/pano/grid2.png",
+        "cubePatternMobile": "/images/pano/grid2.png",
+        "cubePatternTransition": "/images/pano/grid2.png",
+        "tilesDesktop": {
+          "levels": [{
+            "cubePattern": "/images/pano/grid2_1.png",
+            "tiledImageWidth": 1344,
+            "tiledImageHeight": 1344
+          }, {
+            "cubePattern": "/images/pano/grid2_2.png",
+            "tiledImageWidth": 1344,
+            "tiledImageHeight": 1344
+          }, {
+            "cubePattern": "/images/pano/grid2_3.png",
+            "tiledImageWidth": 1024,
+            "tiledImageHeight": 1024
+          }, {
+            "cubePattern": "/images/pano/grid2_4.png",
+            "tiledImageWidth": 803,
+            "tiledImageHeight": 803
+          }],
+          "tileSize": 1000
+        },
+        "fovMin": 39.89952087402344,
+        "limitedAccess": false,
+        "isFirst": true,
+        "attachments": [],
+        "hotspots": [],
+        "pitch": 0.3,
+        "roll": 0.7,
+        "created": 1514556888000
+      }
+    },
+    "views": [],
+    "maps": {
+      "-100": {
+        "hotspots": []
+      }
+    },
+    "use3DPlayer": true
+  },
+  "registrationFields": {
+    "PHONE": false,
+    "LAST_NAME": true,
+    "EMAIL": true,
+    "FIRST_NAME": true
+  },
+  "urls": {
+    "imprint": "https://www.immoviewer.com/imprint/",
+    "privacyPolicy": "https://www.immoviewer.com/privacy-policy/",
+    "product": "http://immoviewer.com",
+    "backendUrls": {
+      "register": "",
+      "track": "",
+      "trackFinish": "",
+      "trackUserEvent": "",
+      "trackUserEventAnonymous": "",
+      "checkRoomAccess": "",
+      "sendEmail": "",
+      "shareTour": "",
+      "takeScreens": "",
+      "storePlayerInitialization": "",
+      "storeLogo": "",
+      "requestTour": "",
+      "acceptPrivacyPolicy": ""
+    },
+    "currentUrl": "http://immoviewer.com",
+    "baseTourUrl": ""
+  },
+  "lang": "EN_US",
+  "email": "fake@fake.com",
+  "playerMode": "DEFAULT",
+  "editorTheme": "IMMOVIEWER_DEFAULT",
+  "baseBackendUrl": "https://sandy.immoviewer.com/rest/v1/",
+  "userRoles": ["FLOORPLAN", "FLOORPLAN_ADMIN", "DEFAULT", "ADMIN", "PANORAMA", "IMMOVIEWER", "PUBLISH", "USER_MOBILE_TEST", "USER_MOBILE_ADMIN", "FLOORPLAN_CUSTOMER", "API"],
+  "promptPrivacyPolicy": false
+}

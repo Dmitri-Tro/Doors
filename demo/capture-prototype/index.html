@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>immoviewer floorplan app</title>
+    <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, minimal-ui" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <meta name="google" content="notranslate" />
+    <meta http-equiv="x-ua-compatible" content="IE=edge" />
+
+    <style>
+        /* splash loader styles*/
+        body {
+            background: #000;
+        }
+        .splash {
+            background: #000;
+            width: 100%;
+            height: 100%;
+            perspective: 600px;
+            display: -webkit-box;
+            display: -moz-box;
+            display: -ms-flexbox;
+            display: -webkit-flex;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: fixed;
+            z-index: 999;
+        }
+        .splash svg{
+            margin-top: 50px;
+            width: 120px;
+            height: 120px;
+        }
+    </style>
+</head>
+<body>
+<div class="svg"></div>
+
+<div class="splash">
+    <svg
+        version="1.1"
+        id="dc-spinner"
+        xmlns="http://www.w3.org/2000/svg"
+        x="0px" y="0px"
+        width="38"
+        height="38"
+        viewBox="0 0 38 38"
+        preserveAspectRatio="xMinYMin meet"
+    >
+        <path fill="#373a42" d="M20,35c-8.271,0-15-6.729-15-15S11.729,5,20,5s15,6.729,15,15S28.271,35,20,35z M20,5.203
+        C11.841,5.203,5.203,11.841,5.203,20c0,8.159,6.638,14.797,14.797,14.797S34.797,28.159,34.797,20
+        C34.797,11.841,28.159,5.203,20,5.203z">
+        </path>
+        <path fill="#373a42" d="M20,33.125c-7.237,0-13.125-5.888-13.125-13.125S12.763,6.875,20,6.875S33.125,12.763,33.125,20
+        S27.237,33.125,20,33.125z M20,7.078C12.875,7.078,7.078,12.875,7.078,20c0,7.125,5.797,12.922,12.922,12.922
+        S32.922,27.125,32.922,20C32.922,12.875,27.125,7.078,20,7.078z">
+        </path>
+        <path fill="#286090" stroke="#286090" stroke-width="0.6027" stroke-miterlimit="10" d="M5.203,20
+                c0-8.159,6.638-14.797,14.797-14.797V5C11.729,5,5,11.729,5,20s6.729,15,15,15v-0.203C11.841,34.797,5.203,28.159,5.203,20z">
+            <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    from="0 20 20"
+                    to="360 20 20"
+                    calcMode="spline"
+                    keySplines="0.4, 0, 0.2, 1"
+                    keyTimes="0;1"
+                    dur="2s"
+                    repeatCount="indefinite" />
+        </path>
+        <path fill="#f0ad4e" stroke="#f0ad4e" stroke-width="0.2027" stroke-miterlimit="10" d="M7.078,20
+        c0-7.125,5.797-12.922,12.922-12.922V6.875C12.763,6.875,6.875,12.763,6.875,20S12.763,33.125,20,33.125v-0.203
+        C12.875,32.922,7.078,27.125,7.078,20z">
+            <animateTransform
+                    attributeName="transform"
+                    type="rotate"
+                    from="0 20 20"
+                    to="360 20 20"
+                    dur="1.8s"
+                    repeatCount="indefinite" />
+        </path>
+    </svg>
+</div>
+
+<div class="btn-group tab-selector" data-toggle="buttons">
+    <label class="btn btn-primary tab-selector__item">
+        <input type="radio" name="views" id="view4" value="pano-measurements" autocomplete="off">Measurements
+    </label>
+    <label class="btn btn-primary tab-selector__item">
+        <input type="radio" name="views" id="view2" value="view2d" autocomplete="off">2D
+    </label>
+    <label class="btn btn-primary tab-selector__item">
+        <input type="radio" name="views" id="view3" value="view3d" autocomplete="off">3D
+    </label>
+</div>
+<div class="floor-selector">
+    <label class="btn btn-default" id="floorMenu" data-toggle="dropdown" aria-haspopup="true"
+           aria-expanded="true">
+        <div class="floors-selector">
+            <span class="glyphicon glyphicon-sort"></span>
+        </div>
+    </label>
+    <ul class="dropdown-menu floor-selector__items" aria-labelledby="floorMenu">
+        <li><a href="#">Empty</a></li>
+    </ul>
+</div>
+
+<div class="tab" id="pano">
+    <div class="mergingPopup" title="Merge options:">
+        <div class="variants"></div>
+        <button type="button" class="btn btn-success">Merge</button>
+    </div>
+
+    <div id="urlSelector" class="nav nav_layered">
+        <div class="nav__line">
+            <button title="Specify pano image url for using in application" id="dLabel1" type="button" class="btn btn-xs btn-default nav__item" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Pano selector
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu apartment-data nav__dropdown" aria-labelledby="dLabel1"></ul>
+
+            <div class="dropdown exportContainer">
+                <button id="dLabel2" type="button" class="btn btn-xs btn-primary nav__item" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Export <span class="caret"></span>
+                </button>
+                <ul class="list-group dropdown-menu export3dContainer nav__dropdown" aria-labelledby="dLabel2">
+                    <li>
+                        <a href="#" class="list-group-item merged-rooms-2d-png" title="Download .png image"><span class="glyphicon glyphicon-download"></span>Export 2d merged rooms .png</a>
+                    </li>
+                    <li>
+                        <a href="#" class="list-group-item merged-rooms-2d-svg" title="Download .svg file"><span class="glyphicon glyphicon-download"></span>Export 2d merged rooms .svg</a>
+                    </li>
+                    <li>
+                        <a href="#" class="list-group-item merged-rooms" title="Download .obj file for open in another 3d modelling software"><span class="glyphicon glyphicon-download"></span>Export 3d merged rooms .obj</a>
+                    </li>
+                    <li>
+                        <a href="#" class="list-group-item alone-room" title="Download .obj file for open in another 3d modelling software"><span class="glyphicon glyphicon-download"></span>Export 3d alone room .obj</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="nav__searchbox">
+                <div class="input-group">
+                    <input class="form-control input-sm nav__searchbox-text js-searchbox-input" id="exampleInputAmount" placeholder="Paste tour url">
+                    <button class="input-group-addon nav__searchbox-btn js-searchbox-btn"><span class="glyphicon glyphicon-search"></span></button>
+                </div>
+            </div>
+        </div>
+        <div class="nav__line">
+            <div class="mergingContainer">
+                <button class="btn btn-xs btn-danger" title="Merge rooms to common plan"><span class="glyphicon glyphicon-download-alt"></span>Merging</button>
+            </div>
+            <div class="remergingContainer">
+                <button class="btn btn-xs btn-warning" title="Remerge changed rooms"><span class="glyphicon glyphicon-retweet"></span>&nbsp; Remerge</button>
+            </div>
+            <div class="stove-btn-wrapper">
+                <button id="rotate-left" type="button" class="btn btn-xs btn-default"><span class="glyphicon glyphicon-menu-left"></span> Rotate</button>
+                <button id="rotate-right" type="button" class="btn btn-xs btn-default">Rotate<span class="glyphicon glyphicon-menu-right"></span></button>
+            </div>
+        </div>
+    </div>
+    <!-- Debug stats -->
+
+    <div class="marker-magnifier">
+        <img src="images/pano/marker-magnifier.png" alt="" />
+    </div>
+    <div id="panoMagnifier"></div>
+    <noscript><table><tr><td>ERROR:<br><br>Javascript not activated<br><br></td></tr></table></noscript>
+</div>
+
+<div class="tab" id="pano-measurements">
+    <div class="tab__offcanvas">
+        <div id="krpano-measurements" class="pano-measurements"></div>
+        <div id="krpano-measurements-magnifier" class="pano-measurements-magnifier"></div>
+        <div id="krpano-measurements-buttons" class="pano-measurements-buttons__wrapper">
+            <button id="krpano-measurements-load" class="btn btn-xs btn-primary pano-measurements-buttons__button pano-measurements-buttons__button_load">
+                <input id="krpano-measurements-load-input" type="file" style="display: none;">
+                Load
+            </button>
+            <button id="krpano-measurements-save" class="btn btn-xs btn-primary pano-measurements-buttons__button pano-measurements-buttons__button_save">
+                Save
+            </button>
+        </div>
+        <div id="krpano-measurements-slider" class="pano-carousel"></div>
+        <div id="krpano-measurements-3d" class="pano-measurements-3d"></div>
+        <div class="controls controls_measurements-height">
+            <div class="controls__item measurements-item" data-key="hints" data-hidden="true">
+                <div class="controls__label controls__label_hidden">
+                    Hints
+                    <div class="controls__toggler controls__toggler_hidden">
+                        ⬆
+                    </div>
+                    <div class="controls__toggler controls__toggler_shown">
+                        ⬇
+                    </div>
+                    </div>
+                    <div class="controls__body pano-measurements-hints">
+                    <div class="pano-measurements-hints__body">
+                        <strong>ALT</strong> — «Add corner» mode<hr>
+                        <strong>SHIFT</strong> — «Add line» mode<hr>
+                        <strong>SHIFT + R</strong> — remove all lines<hr>
+                        <strong>X</strong> — Move all corners of floor or ceiling<hr>
+                        <!-- <strong>F</strong> — set hovered corner to floor<hr>
+                        <strong>C</strong> — set hovered corner to ceiling<hr> -->
+                        <strong>V</strong> — Toggle hovered corner visibility<hr>
+                        <strong>R</strong> — Remove hovered corner or line<hr>
+                        <strong>S</strong> — Swap hovered edge<hr>
+                        <strong>D</strong> — Add door to wall<hr>
+                        <strong>W</strong> — Add window to wall
+                        <!-- <hr> -->
+                        <!-- <strong>E</strong> — add element on wall -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls__item measurements-item" data-key="element" data-enabled="false">
+                <div class="controls__label">
+                    Selected element
+                    <div class="controls__toggler controls__toggler_hidden">
+                        ⬆
+                    </div>
+                    <div class="controls__toggler controls__toggler_shown">
+                        ⬇
+                    </div>
+                </div>
+                <div class="controls__body">
+                    <div id="measurement-element">
+                        Loading...
+                    </div>
+                </div>
+            </div>
+
+            <div class="controls__item measurements-item" data-key="room" data-enanled="false">
+                <div class="controls__label">
+                    Current location
+                    <div class="controls__toggler controls__toggler_hidden">
+                        ⬆
+                    </div>
+                    <div class="controls__toggler controls__toggler_shown">
+                        ⬇
+                    </div>
+                </div>
+                <div class="controls__body">
+                    <div id="measurements-room-options">Loading...</div>
+                </div>
+            </div>
+
+            <div class="controls__item measurements-item" data-key="calibration" data-enabled="true" data-hidden="true">
+                <div class="controls__label controls__label_hidden">
+                    Calibration
+                    <div class="controls__toggler controls__toggler_hidden">
+                        ⬆
+                    </div>
+                    <div class="controls__toggler controls__toggler_shown">
+                        ⬇
+                    </div>
+                </div>
+                <div class="controls__body">
+                    <div id="measurements-room-pitch-roll"></div>
+                </div>
+            </div>
+
+            <div class="controls__item measurements-item" data-key="export" data-enabled="true">
+                <div class="controls__label">
+                    Export
+                    <div class="controls__toggler controls__toggler_hidden">
+                        ⬆
+                    </div>
+                    <div class="controls__toggler controls__toggler_shown">
+                        ⬇
+                    </div>
+                </div>
+                <div class="controls__body">
+                    <div id="measurement-export">
+                        <div id="measurement-export-options"></div>
+                        <button 
+                            id="measurement-to-2d" 
+                            class="btn btn-xs btn-primary controls__button controls__button_width-1">
+                            Export to 2D View Tab
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="tab tab_active" id="view2d">
+    <div class="tab__offcanvas">
+        <header class="topnav">
+            <h1 class="topnav__title">Floorplan Editor</h1>
+            <div class="topnav__buttons">
+                <button type="button" class="btn btn-sm btn-default js-load-json">Load JSON</button>
+                <div class="btn-group btn-group-sm">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        Export <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-right">
+                        <li>
+                            <a class="dropdown-item js-save-json" href="#">
+                                <span class="glyphicon glyphicon-save"></span> JSON
+                            </a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li>
+                            <a class="dropdown-item js-download-png" href="#">
+                                <span class="glyphicon glyphicon-picture"></span> PNG
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item js-download-jpg" href="#">
+                                <span class="glyphicon glyphicon-file"></span> JPG
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item js-download-archive" href="#">
+                                <span class="glyphicon glyphicon-tasks"></span> JPG + PNG
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item js-download-measurements" href="#">
+                                <span class="glyphicon glyphicon-resize-full"></span> Zip with wall measurements
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item js-download-square" href="#">
+                                <span class="glyphicon glyphicon-fullscreen"></span> Zip with square measurements
+                            </a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item js-download-central" href="#">
+                                <span class="glyphicon glyphicon-sort"></span> Zip with central measurements
+                            </a>
+                        </li>
+                        <li role="separator" class="divider"></li>
+                        <li>
+                            <a class="dropdown-item js-download-all" href="#">
+                                <span class="glyphicon glyphicon-floppy-disk"></span> Images zipped
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+                <button type="button" class="btn btn-sm btn-primary js-upload-floorplan">Save</button>
+            </div>
+        </header>
+        <div class="asidenav">
+            <nav class="iconsnav">
+                <ul class="iconsnav__list">
+                    <li class="iconsnav__item">
+                        <a class="iconsnav__link iconsnav__link-construction" href="#" title="Construction"></a>
+                        <section class="embed">
+                            <header class="embed__header">Construction</header>
+                            <div class="embed__btn-list">
+                                <button class="embed__btn js-door-object">
+                                    <img src="images/door.png" alt="" class="embed__icon" />
+                                    <span class="embed__text">Door</span>
+                                </button>
+                                <button class="embed__btn js-window-object">
+                                    <img src="images/window.png" alt="" class="embed__icon" />
+                                    <span class="embed__text">Window</span>
+                                </button>
+                                <button class="embed__btn js-embed-object" data-type="stairs">
+                                    <img src="images/stairs.png" alt="" class="embed__icon" />
+                                    <span class="embed__text">Stairs</span>
+                                </button>
+                                <button class="embed__btn js-embed-object" data-type="stairs_spiral">
+                                    <img src="images/stairs.png" alt="" class="embed__icon" />
+                                    <span class="embed__text">Spiral stairs <span class="label label-danger">old</span></span>
+                                </button>
+                                <button class="embed__btn js-embed-object" data-type="stairs_spiral_quarter">
+                                    <img src="images/stairs_spiral_quarter.png" alt="" class="embed__icon" />
+                                    <span class="embed__text">Spiral stairs quarter <span class="label label-danger">old</span></span>
+                                </button>
+                                <button class="embed__btn js-embed-object" data-type="stairs_rect_quarter">
+                                    <img src="images/stairs_rect_quarter.png" alt="" class="embed__icon" />
+                                    <span class="embed__text">Rect stairs quarter <span class="label label-danger">old</span></span>
+                                </button>
+                                <button class="embed__btn js-embed-object" data-type="stairs_caracole">
+                                    <img src="images/stairs_spiral_quarter.png" alt="" class="embed__icon" />
+                                    <span class="embed__text">Caracole <span class="label label-success">new</span></span>
+                                </button>
+                                <button class="embed__btn js-embed-object" data-type="stairs_square">
+                                    <img src="images/stairs_rect_quarter.png" alt="" class="embed__icon" />
+                                    <span class="embed__text">Caracole Square <span class="label label-success">new</span></span>
+                                </button>
+                                <button class="embed__btn js-embed-object" data-type="cube">
+                                    <img src="images/cube.png" alt="" class="embed__icon" />
+                                    <span class="embed__text">Cube</span>
+                                </button>
+                            </div>
+                        </section>
+                    </li>
+                    <li class="iconsnav__item">
+                        <a class="iconsnav__link iconsnav__link-furniture" href="#" title="Furniture"></a>
+                        <section class="embed">
+                            <header class="embed__header">Furniture</header>
+                            <section class="embed__section">
+                                <header class="embed__header-small">bathroom</header>
+                                <div class="embed__btn-list">
+                                    <button class="embed__btn js-embed-object" data-type="bath"><img src="images/bath.png" alt="" class="embed__icon" /> Bath</button>
+                                    <button class="embed__btn js-embed-object" data-type="bath_corner"><img src="images/bath.png" alt="" class="embed__icon" /> Bath corner</button>
+                                    <button class="embed__btn js-embed-object" data-type="toilet"><img src="images/toilet.png" alt="" class="embed__icon" /> Toilet</button>
+                                    <button class="embed__btn js-embed-object" data-type="urinal"><img src="images/toilet.png" alt="" class="embed__icon" /> Urinal</button>
+                                    <button class="embed__btn js-embed-object" data-type="sink"><img src="images/sink.png" alt="" class="embed__icon" /> Sink</button>
+                                    <button class="embed__btn js-embed-object" data-type="shower"><img src="images/shower.png" alt="" class="embed__icon" /> Shower</button>
+                                    <button class="embed__btn js-embed-object" data-type="box"><img src="images/washing-machine.png" alt="" class="embed__icon" /> Washing machine</button>
+                                </div>
+                            </section>
+                            <section class="embed__section">
+                                <header class="embed__header-small">kitchen</header>
+                                <div class="embed__btn-list">
+                                    <button class="embed__btn js-embed-object" data-type="chair"><img src="images/chair.png" alt="" class="embed__icon" /> Chair</button>
+                                    <button class="embed__btn js-embed-object" data-type="sink_kitchen"><img src="images/sink.png" alt="" class="embed__icon" /> Sink</button>
+                                    <button class="embed__btn js-embed-object" data-type="stove"><img src="images/stove.png" alt="" class="embed__icon" /> Stove</button>
+                                    <button class="embed__btn js-embed-object" data-type="fridge"><img src="images/fridge.png" alt="" class="embed__icon" /> Fridge</button>
+                                </div>
+                            </section>
+                            <section class="embed__section">
+                                <header class="embed__header-small">bedroom</header>
+                                <div class="embed__btn-list">
+                                    <button class="embed__btn js-embed-object" data-type="bedroom"><img src="images/bedroom.png" alt="" class="embed__icon" /> Bedroom</button>
+                                    <button class="embed__btn js-embed-object" data-type="bedroom_single"><img src="images/bedroom_single.png" alt="" class="embed__icon" /> Bedroom single</button>
+                                    <button class="embed__btn js-embed-object" data-type="nightstand"><img src="images/nightstand.png" alt="" class="embed__icon" /> Nightstand</button>
+                                    <button class="embed__btn js-embed-object" data-type="wardrobe"><img src="images/wardrobe.png" alt="" class="embed__icon" /> Wardrobe</button>
+                                </div>
+                            </section>
+                            <section class="embed__section">
+                                <header class="embed__header-small">living room</header>
+                                <div class="embed__btn-list">
+                                    <button class="embed__btn js-embed-object" data-type="table"><img src="images/table.png" alt="" class="embed__icon" /> Table</button>
+                                    <button class="embed__btn js-embed-object" data-type="chair"><img src="images/chair.png" alt="" class="embed__icon" /> Chair</button>
+                                    <button class="embed__btn js-embed-object" data-type="plant"><img src="images/plant.png" alt="" class="embed__icon" /> Plant</button>
+                                </div>
+                            </section>
+                        </section>
+                    </li>
+                </ul>
+
+
+                <div class="help">
+
+                </div>
+            </nav>
+        </div>
+        <div class="preview popup js-draggable js-resizable" data-drag-id="drag-helper" data-resize-id="resize-helper">
+            <header class="popup__header noselect">
+                <nav class="dragger" id="drag-helper">
+                    <span class="dragger__icon"></span>
+                    <span class="dragger__icon2"></span>
+                </nav>
+                <span class="popup__title">360° View</span>
+                <a href="" class="preview__fullscreen hide" target="_blank"><i class="glyphicon glyphicon-new-window"></i></a>
+            </header>
+            <div class="preview__pano" id="2dpano">
+                <div id="krpanoSWFObject3" class="preview__panowrap"></div>
+            </div>
+            <div class="preview__corner" id="resize-helper"><i class="glyphicon glyphicon-menu-down"></i></div>
+        </div>
+        <div class="propspanel popup js-draggable" style="display: none;" data-drag-id="drag-helper-props">
+            <div class="popup__header noselect">
+                <nav class="dragger dragger_gray" id="drag-helper-props">
+                    <span class="dragger__icon"></span>
+                    <span class="dragger__icon2"></span>
+                </nav>
+                <span class="popup__title propspanel__title">Type</span>
+            </div>
+            <form class="propspanel__form"></form>
+        </div>
+        <div class="content">
+            <canvas id="floorview" class="tab__view canvas noselect"></canvas>
+            <!--canvas id="compass" class="canvas canvas_compass js-compass noselect"></canvas-->
+        </div>
+        <div class="tools tools_draggable switcher noselect js-draggable" id="tools" data-drag-id="tools-drag-helper">
+            <nav class="tools__dragger" id="tools-drag-helper">
+                <span class="tools__icon tools__dragger-item glyphicon glyphicon-option-vertical"></span>
+                <span class="tools__icon tools__dragger-item2 glyphicon glyphicon-option-vertical"></span>
+            </nav>
+
+            <button type="button" class="btn btn-default active tools__tab switcher__item js-mode-move" id="move">
+                <i class="tools__icon fas fa-hand-paper"></i>
+                <span class="tools__title">Move<span class="tools__shortcut">(v)</span></span>
+            </button>
+            <button type="button" class="btn btn-default tools__tab switcher__item js-mode-draw">
+                <i class="tools__icon fas fa-pencil-alt"></i>
+                <span class="tools__title">Sketch<span class="tools__shortcut">(s)</span></span>
+            </button>
+            <button type="button" class="btn btn-default tools__tab switcher__item js-mode-drawline">
+                <i class="tools__icon fas fa-grip-lines"></i>
+                <span class="tools__title">Draw lines</span>
+            </button>
+            <button type="button" class="btn btn-default tools__tab switcher__item js-mode-rotate">
+                <i class="tools__icon fas fa-sync-alt"></i>
+                <span class="tools__title">Rotate</span>
+            </button>
+            <button type="button" class="btn btn-default tools__tab switcher__item js-mode-delete">
+                <i class="tools__icon fas fa-eraser"></i>
+                <span class="tools__title">Erase<span class="tools__shortcut">(e)</span></span>
+            </button>
+
+            <span class="tools__separator"></span>
+
+            <button type="button" class="btn btn-default tools__tab switcher__item js-door-object">
+                <i class="tools__icon fas fa-door-open"></i>
+                <span class="tools__title">Door<span class="tools__shortcut">(d)</span></span>
+            </button>
+            <button type="button" class="btn btn-default tools__tab switcher__item js-window-object">
+                <i class="tools__icon fas fa-window-maximize"></i>
+                <span class="tools__title">Window<span class="tools__shortcut">(w)</span></span>
+            </button>
+
+            <span class="tools__separator"></span>
+
+            <button type="button" class="btn btn-default tools__tab js-toggle-doors">
+                <i class="tools__icon fas fa-lock-open"></i>
+                <span class="tools__title">Open doors</span>
+            </button>
+        </div>
+        <div class="units">
+            <div class="btn-group dropup">
+                <button type="button" class="btn btn-default dropdown-toggle js-units-btn" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    m <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-right">
+                    <li>
+                        <a class="dropdown-item js-units-metric" href="#" id="metric">m</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item js-units-imperial" href="#" id="imperial">ft/in</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item js-units-imperial2" href="#" id="imperial2">ft</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item js-units-both" href="#" id="both">ft/in (m)</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div 
+            id="measurement-tab-values" 
+            class="measurements-panel popup popup__measurement-tab-values js-draggable hidden" 
+            data-drag-id="drag-helper-measurement-tab-values">
+            <header class="popup__header measurements-panel__header noselect">
+                <nav class="dragger" id="drag-helper-measurement-tab-values">
+                    <span class="dragger__icon"></span>
+                    <span class="dragger__icon2"></span>
+                </nav>
+                <span class="popup__title measurements-panel__title">
+                    Measurement tab lengths
+                </span>
+            </header>
+
+            <form id="measurement-tab-values-list" class="measurements-panel__form">
+            </form>
+        </div>
+        <div class="overlay-settings popup js-draggable" data-drag-id="overlay-drag-helper">
+            <div class="popup__header noselect">
+                <nav class="dragger" id="overlay-drag-helper">
+                    <span class="dragger__icon"></span>
+                    <span class="dragger__icon2"></span>
+                </nav>
+                <span class="popup__title">Image settings</span>
+            </div>
+            <div class="popup__content">
+                <div class="rangeslider overlay-settings__item">
+                    <label for="overlay_opacity" class="overlay-settings__label">
+                        <span class="rangeslider__label">opacity</span>
+                        <input type="range" name="overlay_opacity" id="overlay_opacity" class="rangeslider__input"
+                               min="0" max="1" step="0.1" value="0.3" />
+                    </label>
+                </div>
+                <div class="rangeslider overlay-settings__item">
+                    <label for="overlay_scale" class="overlay-settings__label">
+                        <span class="rangeslider__label">scale</span>
+                        <input type="range" name="overlay_scale" id="overlay_scale" class="rangeslider__input"
+                               min="0.5" max="6" step="0.1" value="2.6" />
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="tab editor3d" id="view3d">
+    <div id="scene3d"></div>
+
+    <div id="editor3d-transform" class="btn-group controls__button-group" data-toggle="buttons">
+        <label class="btn btn-xs btn-primary">
+            <input type="radio" name="transform" value="puzzle" autocomplete="puzzle">Puzzle
+        </label>
+        <label class="btn btn-xs btn-primary active">
+            <input type="radio" name="transform" value="elements" autocomplete="elements">Elements
+        </label>
+        <label class="btn btn-xs btn-primary">
+            <input type="radio" name="transform" value="rooms" autocomplete="rooms">Rooms
+        </label>
+        <label class="btn btn-xs btn-primary">
+            <input type="radio" name="transform" value="floors" autocomplete="floors">Floors
+        </label>
+    </div>
+
+    <div id="editor3d-transform-mode" class="btn-group controls__button-group" data-toggle="buttons" disabled="true">
+        <label class="btn btn-xs btn-primary active">
+            <input type="radio" name="transform-mode" value="translate" autocomplete="off">Translate
+        </label>
+        <label class="btn btn-xs btn-primary">
+            <input type="radio" name="transform-mode" value="rotate" autocomplete="off">Rotate
+        </label>
+    </div>
+
+    <div class="controls controls_auto-height">
+        <div class="controls__item editor3d-item" data-key="export">
+            <div class="controls__label">
+                Export
+                <div class="controls__toggler controls__toggler_hidden" style="display: none;">
+                    ⬆
+                </div>
+                <div class="controls__toggler controls__toggler_shown">
+                    ⬇
+                </div>
+            </div>
+            <div class="controls__body">
+                <button id="editor3d-upload-to-server" type="button" title="Upload to server" class="btn btn-xs btn-primary controls__button controls__button_width-1">
+                    <span class="glyphicon glyphicon-upload"></span> Upload to server
+                </button>
+                <button id="editor3d-get-gif" type="button" title="Get gif" class="btn btn-xs btn-default controls__button controls__button_width-1">
+                    <span class="glyphicon glyphicon-upload"></span> Get gif
+                </button>
+                <button id="editor3d-download-obj" type="button" title="Download model" class="btn btn-xs btn-default controls__button controls__button_width-2">
+                    <span class="glyphicon glyphicon-download"></span> Download OBJ
+                </button>
+                <button id="editor3d-download-stl" type="button" title="Download model" class="btn btn-xs btn-default controls__button controls__button_width-2">
+                    <span class="glyphicon glyphicon-download"></span> Download STL
+                </button>
+                <button id="editor3d-download-xml" type="button" title="Save as XML" class="btn btn-xs btn-default controls__button controls__button_width-2">
+                    <span class="glyphicon glyphicon-import"></span> Save as XML
+                </button>
+                <button id="editor3d-camera-positions" type="button" title="Download cameras" class="btn btn-xs btn-default controls__button controls__button_width-2">
+                    <span class="glyphicon glyphicon-list"></span> Download cameras
+                </button>
+                <button id="editor3d-reset-floor" type="button" title="Download cameras" class="btn btn-xs btn-danger controls__button controls__button_width-1">
+                    <span class="glyphicon glyphicon-exclamation-sign"></span> Reset floor
+                </button>
+                
+            </div>
+        </div>
+
+        <div class="controls__item editor3d-item" data-key="editor" data-hidden="true">
+            <div class="controls__label">
+                Editor
+                <div class="controls__toggler controls__toggler_hidden" style="display: none;">
+                    ⬆
+                </div>
+                <div class="controls__toggler controls__toggler_shown">
+                    ⬇
+                </div>
+            </div>
+            <div class="controls__body">
+                <div id="editor3d-editor-options"></div>
+            </div>
+        </div>
+
+        <div class="controls__item editor3d-item" data-key="brush">
+            <div class="controls__label">
+                Brush
+                <div class="controls__toggler controls__toggler_hidden" style="display: none;">
+                    ⬆
+                </div>
+                <div class="controls__toggler controls__toggler_shown">
+                    ⬇
+                </div>
+            </div>
+            <div class="controls__body">
+                <div id="editor3d-brush-options"></div>
+            </div>
+        </div>
+
+        <div class="controls__item editor3d-item" data-key="puzzle" data-enabled="false">
+            <div class="controls__label">
+                Puzzle
+                <div class="controls__toggler controls__toggler_hidden" style="display: none;">
+                    ⬆
+                </div>
+                <div class="controls__toggler controls__toggler_shown">
+                    ⬇
+                </div>
+            </div>
+            <div class="controls__body">
+                <div id="editor3d-puzzle-pieces">Loading...</div>
+                <button id="editor3d-merge-rooms" type="button" title="Merge" class="btn btn-xs btn-primary controls__button controls__button_width-1">
+                    <span class="glyphicon glyphicon-tower"></span> Merge corners & walls
+                </button>
+                <button id="editor3d-assemble-puzzle" type="button" title="Assemble" class="btn btn-xs btn-primary controls__button controls__button_width-1">
+                    <span class="glyphicon glyphicon-retweet"></span> Assemble puzzle
+                </button>
+            </div>
+        </div>
+
+        <div class="controls__item editor3d-item" data-key="floors" data-enabled="false">
+            <div class="controls__label">
+                Floors
+                <div class="controls__toggler controls__toggler_hidden" style="display: none;">
+                    ⬆
+                </div>
+                <div class="controls__toggler controls__toggler_shown">
+                    ⬇
+                </div>
+            </div>
+            <div class="controls__body">
+                <div id="editor3d-floors-options">Loading...</div>
+            </div>
+        </div>
+
+        <div class="controls__item editor3d-item" data-key="rooms" data-enabled="false">
+            <div class="controls__label">
+                Rooms
+                <div class="controls__toggler controls__toggler_hidden" style="display: none;">
+                    ⬆
+                </div>
+                <div class="controls__toggler controls__toggler_shown">
+                    ⬇
+                </div>
+            </div>
+            <div class="controls__body">
+                <div id="editor3d-selected-room"></div>
+                <button id="editor3d-add-room" type="button" title="Add new room" class="btn btn-xs btn-primary controls__button controls__button_width-2">
+                    <span class="glyphicon glyphicon-plus"></span> Add new room
+                </button>
+                <button id="editor3d-remove-room" type="button" title="Add new room" class="btn btn-xs btn-danger controls__button controls__button_width-2">
+                    <span class="glyphicon glyphicon-minus"></span> Remove room
+                </button>
+            </div>
+        </div>
+
+        <div class="controls__item editor3d-item" data-key="elements" data-enabled="false">
+            <div class="controls__label">
+                Elements
+                <div class="controls__toggler controls__toggler_hidden" style="display: none;">
+                    ⬆
+                </div>
+                <div class="controls__toggler controls__toggler_shown">
+                    ⬇
+                </div>
+            </div>
+            <div class="controls__body">
+                <div id="editor3d-elements-parameters"></div>
+                <button id="editor3d-merge-corners" type="button" title="Merge" class="btn btn-xs btn-primary controls__button controls__button_width-1">
+                    <span class="glyphicon glyphicon-tower"></span> Merge corners & walls
+                </button>
+            </div>
+        </div>
+
+        <div class="controls__item editor3d-item" data-key="cut" data-enabled="false">
+            <div class="controls__label">
+                Cut
+                <div class="controls__toggler controls__toggler_hidden" style="display: none;">
+                    ⬆
+                </div>
+                <div class="controls__toggler controls__toggler_shown">
+                    ⬇
+                </div>
+            </div>
+            <div class="controls__body">
+                <div id="editor3d-cut-options"></div>
+            </div>
+        </div>
+
+        <div class="controls__item editor3d-item" data-key="selected" data-enabled="false">
+            <div class="controls__label">
+                Parameters
+                <div class="controls__toggler controls__toggler_hidden" style="display: none;">
+                    ⬆
+                </div>
+                <div class="controls__toggler controls__toggler_shown">
+                    ⬇
+                </div>
+            </div>
+            <div class="controls__body">
+                <div id="editor3d-selected-parameters"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href="" id="downloadJSON"></a>
+<a href="" id="downloadXML"></a>
+
+<script type="text/javascript" src="js/vendor/jquery-2.1.3.min.js"></script>
+<script type="text/javascript">
+    (function() {
+        //to debug add ?debug=1 to current url
+        if (document.location.search.indexOf("debug=1") > -1) {
+            function ScriptLoader(scripts, onScript, onComplete) {
+                this.async = true;
+                this.cache = true;
+                this.data = null;
+                this.complete = function () {
+                    $.scriptHandler.loaded();
+                };
+                this.scripts = scripts;
+                this.onScript = onScript;
+                this.onComplete = onComplete;
+                this.total = scripts.length;
+                this.progress = 0;
+            }
+
+            ScriptLoader.prototype.fetch = function () {
+                $.scriptHandler = this;
+                var src = this.scripts[this.progress];
+                console.log('%cFetching %s', 'color:#ffbc2e;', src);
+
+                $.ajax({
+                    crossDomain: true,
+                    async: this.async,
+                    cache: this.cache,
+                    type: 'GET',
+                    url: src,
+                    data: this.data,
+                    statusCode: {
+                        200: this.complete
+                    },
+                    dataType: 'script'
+                });
+            };
+
+            ScriptLoader.prototype.loaded = function () {
+                this.progress++;
+                if (this.progress >= this.total) {
+                    if (this.onComplete) this.onComplete();
+                } else {
+                    this.fetch();
+                }
+                if (this.onScript) this.onScript();
+            };
+
+            $.getJSON("../bundles.json", function(data) {
+                var arItems = [];
+                for (var type in data) {
+                    for (var file in data[type].items) {
+                        arItems.push(data[type].items[file]);
+                    }
+                }
+
+                //add css separated files
+                document.querySelector('head').innerHTML += '' +
+                    '<link rel="stylesheet" href="js/vendor/bootstrap-3.3.7-dist/css/bootstrap.min.css" />' +
+                    '<link rel="stylesheet" href="js/vendor/jquery-ui-1.12.1/jquery-ui.min.css" />' +
+                    '<link rel="stylesheet" href="css/build/style.css" />';
+
+                var scripts = new ScriptLoader(
+                    arItems,
+                    function() {},
+                    function() { $(".splash").remove(); }
+                );
+                scripts.fetch();
+            });
+        } else {
+            $.getJSON("css/build/rev-manifest.json", function(data) {
+                var css = $("head").append("<link>").children(":last");
+                css.attr({
+                    rel:  "stylesheet",
+                    type: "text/css",
+                    href: "css/build/" + data["style.css"]
+                });
+            });
+            $.getJSON("js/build/rev-manifest.json", function(data) {
+                if ("bundle.min.js" in data) $.getScript("js/build/" + data["bundle.min.js"]).done(function(script, textStatus) {
+                    $(".splash").remove();
+                });
+            });
+        }
+    })();
+</script>
+
+</body>
+</html>

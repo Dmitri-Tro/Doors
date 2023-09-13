@@ -1,0 +1,41 @@
+.pano-measurements {
+  height: 100%;
+
+  polyline {
+    stroke-dasharray: 20 20;
+    pointer-events: none !important;
+  }
+}
+
+.pano-measurements-magnifier {
+  height: 250px;
+  width: 250px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  border: 1px solid black;
+  // border-radius: 125px;
+  overflow: hidden;
+}
+
+.pano-measurements-buttons{
+  &__wrapper {
+    position: absolute;
+    z-index: 1001;
+    top: 0;
+    left: 0;
+    margin: 11px;
+    display: none;
+  }
+}
+
+.pano-measurements-hints {
+  &__body {
+    font-size: small;
+    color: black;
+    & hr {
+      border-color: #BDBDBD;
+      margin: 1px;
+    }
+  }
+}

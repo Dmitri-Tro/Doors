@@ -1,0 +1,49 @@
+.dragger {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 30px;
+  height: 100%;
+}
+
+.dragger__icon {
+  display: block;
+  font-size: 16px;
+  position: absolute;
+  top: 9px;
+  left: 6px;
+  color: #000;
+
+  @extend .glyphicon;
+  @extend .glyphicon-option-vertical;
+}
+.dragger__icon2 {
+  display: block;
+  font-size: 16px;
+  position: absolute;
+  top: 9px;
+  left: 12px;
+  color: #000;
+
+  @extend .glyphicon;
+  @extend .glyphicon-option-vertical;
+}
+
+.dragger_big {
+  .dragger__icon {
+    font-size: 22px;
+    top: 19px;
+    left: 10px;
+  }
+  .dragger__icon2 {
+    font-size: 22px;
+    top: 19px;
+    left: 18px;
+  }
+}
+
+.dragger_gray {
+  .dragger__icon, .dragger__icon2 {
+    color: #fff;
+  }
+}

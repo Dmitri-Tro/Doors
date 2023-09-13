@@ -1,0 +1,9 @@
+<% for (id in floors) { %>
+  <% if (floors[id].avalible && floors[id].enabled) { %>
+    <li data-floor="<%=id%>" class="floor-selector__item <%=currentFloor == id ? 'floor-selector__item_active' : ''%>">
+      <a href="#">
+        <%=floors[id].name%>
+      </a>
+    </li>
+  <% } %>
+<% } %>

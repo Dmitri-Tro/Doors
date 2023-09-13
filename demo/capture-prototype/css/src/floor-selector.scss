@@ -1,0 +1,25 @@
+.floor-selector {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 6px;
+  z-index: 301;
+  margin-left: 130px;
+
+  &_visible {
+    display: inline-block;
+  }
+
+  &__item {
+    &_active {
+      background-color: #286090;
+      border-color: #204d74;
+      & a {
+        color: #fff !important;
+        &:hover {
+          background-color: #204d74 !important;
+        }
+      }
+    }
+  }
+}

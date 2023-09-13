@@ -1,0 +1,13 @@
+{
+    "name": "krpano-with-3d",
+    "version": "0.1.0",
+    "description": "Panorama with 3d model",
+    "engines": {
+        "node": ">= 0.10.x",
+        "npm": ">= 1.4.x"
+    },
+    "dependencies": {
+        "connect": "^3.6.5",
+        "serve-static": "^1.13.1"
+    }
+}

@@ -1,0 +1,19 @@
+.tab {
+  display: none;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+.tab_active {
+  display: block;
+  pointer-events: auto;
+}
+.tab__view {}
+.tab__offcanvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background: #fff;
+}

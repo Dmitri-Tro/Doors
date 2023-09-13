@@ -1,0 +1,24 @@
+#editor3d-transform {
+  position: absolute;
+  top: 40px;
+  margin: 0px auto;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+#editor3d-transform-mode {
+  position: absolute;
+  top: 69px;
+  margin: 0px auto;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+}
+
+.editor3d {
+  cursor: auto;
+  &_cursor-brush {
+    cursor: url(../../images/editor3d/brush.cur), auto;
+  }
+}

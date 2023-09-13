@@ -1,0 +1,128 @@
+
+.pano-carousel {
+  position: absolute;
+  bottom: 0;
+
+  &_hidden {
+    & .pano-carousel__wrapper {
+      opacity: 0;
+      height: 0px;
+      pointer-events: none;
+    }
+
+    & .pano-carousel__selector_floors {
+      display: none;
+    }
+
+    & .pano-carousel__selector_rooms {
+      & .show-room {
+        display: inline;
+      }
+
+      & .hide-room {
+        display: none;
+      }
+    }
+  }
+
+  &__section {
+    position: absolute;
+    width: 100vw;
+    // height: 120px;
+    bottom: 10px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    transition: 1s bottom cubic-bezier(0.075, 0.82, 0.165, 1);
+
+    &:hover {
+      // bottom: 40px;
+    }
+  }
+
+  &__wrapper {
+    align-self: center;
+    width: calc(100% - 520px);
+    opacity: 1;
+    height: auto;
+    transition: opacity 1s;
+  }
+
+  &__body {
+    display: none !important;
+    // max-height: 140px;
+  
+    &_active {
+      display: block !important;
+    }
+  }
+
+  &__image {
+    cursor: pointer;
+    border-radius: 5px;
+    overflow: hidden;
+
+    & img {
+      height: 70px;
+    }
+  }
+
+  &__description {
+    color: white;
+    padding: 0px 5px;
+    background-color: #007DAF;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    display: block;
+  }
+
+  &__selector {
+    list-style: none;
+    background: rgba(10, 10, 10, 0.2);
+    border: 2px solid #fff;
+    border-radius: 2px;
+    padding: 4px 6px;
+    opacity: 0.85;
+    text-align: center;
+    display: inline-block;
+    cursor: pointer;
+    margin: 0px 10px;
+
+    & a {
+      &:hover {
+        color: white;
+      }
+    }
+
+    &_rooms {
+      background: transparent;
+      border-color: transparent;
+      opacity: 1;
+
+      & .show-room {
+        display: none;
+      }
+      
+      & .hide-room {
+        display: inline;
+      }
+    }
+
+    & .floor-item {
+      cursor: pointer;
+    }
+
+    & .dropdown-menu {
+      margin-left: -20px;
+      margin-bottom: 10px;
+    }
+  }
+
+  &__selector-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+}

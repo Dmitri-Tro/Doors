@@ -1,0 +1,80 @@
+.nav {
+  position: absolute;
+  left: 10px;
+  top: 30px;
+
+  -webkit-user-select: none; /* webkit (safari, chrome) browsers */
+  -moz-user-select: none; /* mozilla browsers */
+  -khtml-user-select: none; /* webkit (konqueror) browsers */
+  -ms-user-select: none; /* IE10+ */
+  user-select: none; /* IE10+ */
+
+  input {
+    background: #fff;
+    color: #000;
+  }
+  label {
+    color: #000;
+  }
+}
+.nav_layered {
+  z-index: 50;
+}
+.nav_secondline {
+  top: 58px;
+}
+.nav_thirdline {
+  top: 87px;
+}
+.nav_fourthline {
+  top: 117px;
+}
+.nav_fifthline {
+  top: 147px;
+}
+.nav__line {
+  display: inline-block;
+  margin-bottom: 10px;
+}
+.nav__item {}
+.nav__dropdown {
+  top: auto;
+}
+.nav__searchbox {
+  display: inline-block;
+  vertical-align: top;
+  width: 120px;
+  height: 24px;
+}
+.nav__searchbox-text {
+  height: 24px;
+}
+.nav__searchbox-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 3;
+  width: 25px;
+  padding: 3px 6px;
+  text-align: center;
+}
+
+.nav__tab {
+  display: block;
+  float: left;
+}
+.nav__tab:not(:first-child) {
+  border-radius: 0;
+}
+.nav__tab:first-child {
+  border-radius: 3px 0 0 3px;
+}
+.nav__tab:last-child {
+  border-radius: 0 3px 3px 0;
+}
+
+@media (max-width: 1320px) {
+  .nav__line {
+    display: block;
+  }
+}

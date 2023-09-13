@@ -1,0 +1,126 @@
+<!-- add or remove hotspots -->
+<div class="pano-carousel pano-carousel_hidden">
+  <!-- Slider gallery -->
+  <div class="pano-carousel__section">
+    <div class="">
+      <div class="dropdown-floor-wrapper pano-carousel__selector-wrapper">
+        <% if (floors.length > 1) { %>
+          <li class="dropup pano-carousel__selector pano-carousel__selector_floors">
+            <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+              <span class="pull-left floor-number">
+                <% if (floors[0].number > 9) { %>
+                  <%=floors[0].number%>
+                <% } %>
+              </span>
+                
+              <span lang="en_us" class="toggle-header" id="floor-switcher" data-floor="<%=floors[0].number%>">
+                <% 
+                  var result = '';
+                  if (!floors[0].name) {
+                    result += 'right.menu.floor.';
+                    if (floors[0].number > 9) {
+                      result += 'x';
+                    } else {
+                      result += floors[0].number;
+                    }
+                  } else {
+                    result += floors[0].name;
+                  } 
+                %>
+
+                <%=result%>
+              </span>
+              
+              <% if (floors.length > 1) { %>
+                <div class="chevron-up-wrapper pull-right">
+                  <span class="vertical-line"></span>
+                </div>
+              <% } %>
+              
+                </a>
+              <% if (floors.length > 1) { %>
+                <ul class="dropdown-menu">
+                  <% for (var n = floors.length - 1; n >= 0; n--) {%>
+                    <li class="floor-item" data-floor="<%=floors[n].number%>">
+                      <a>
+                        <span class="pull-left number">
+                          <% if (floors[n].number > 9 && !floors[n].name) { %>
+                            <%=floors[n].number%>
+                          <% } %>
+                        </span>
+                        <span class="number_tag" lang="en_us">
+                          <% //info: can be moved to function
+                            var result = '';
+                            if (!floors[n].name) {
+                              result += 'right.menu.floor.';
+                              if (floors[n].number > 9) {
+                                result += 'x';
+                              } else {
+                                result += floors[n].number;
+                              }
+                            } else {
+                              result += floors[n].name;
+                            } 
+                          %>
+                          <%=result%>
+                        </span>
+                      </a>
+                    </li>
+                  <% } %>
+                </ul>
+              <% } %>
+          </li>
+        <% } else { %>
+          <li class="dropup pano-carousel__selector pano-carousel__selector_floors">
+            <a href="" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
+              <span class="pull-left floor-number">🏡 Locations</span>
+              <span lang="en_us" class="toggle-header" id="floor-switcher" data-floor="0"></span>
+            </a>
+          </li>
+        <% } %>
+        <div class="pano-carousel__selector pano-carousel__selector_rooms">
+          <span class="show-room"><span class="glyphicon glyphicon-chevron-up"></span></span>
+          <span class="hide-room"><span class="glyphicon glyphicon-chevron-down"></span></span>
+        </div>
+    </div>
+  </div>
+
+    <%
+      // Todo: move
+      function cleanFilenameCommon (filename) {
+        return filename.replace(/\./g,"-_-").replace(/ /g, "_sp_");
+      }
+    %>
+
+    <div class="slider-gallery-wrapper pano-carousel__wrapper">
+      <% for (var i = 0; i < floors.length; i++) { %>
+        <div 
+          id="owl-carousel-<%=floors[i].number%>" 
+          class="owl-carousel <%=floors[i].number%> owl-theme pano-carousel__body" 
+          data-floor="<%=floors[i].number%>" 
+          data-active-floorname="<%=floors[i].name%>"
+        >
+          <% for (var key in tour.rooms) { %>
+            <% if (tour.rooms.hasOwnProperty(key)) { %>
+              <% var room = tour.rooms[key]; %>
+              <% if (floors[i].number === parseInt(room.plan)) { %>
+                <div 
+                  id="thumb-<%=cleanFilenameCommon(room.filename)%>" 
+                  class="pano-carousel__image" 
+                  data-fileName="<%=cleanFilenameCommon(room.filename)%>"
+                  title="<%=room.name || 'Room'%>"
+                >
+                  <img crossorigin="anonymous" class="img-responsive" src="<%=room.thumbnail%>" alt="">
+                  <span class="pano-carousel__description" data-id="<%=key%>">
+                    <%=room.name || 'Room'%>
+                  </span>
+                </div>
+              <% } %>
+            <% } %>
+          <% } %>
+        </div>
+      <% } %>
+    </div>
+  </div>
+  <!-- / Slider gallery -->
+</div>

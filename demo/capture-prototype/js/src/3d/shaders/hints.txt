@@ -1,0 +1,108 @@
+// Cube to equirect
+
+vec2 texCoord = fragCoord.xy / iResolution.xy; 
+vec2 thetaphi = ((texCoord * 2.0) - vec2(1.0)) * vec2(3.1415926535897932384626433832795, 1.5707963267948966192313216916398); 
+vec3 rayDirection = vec3(cos(thetaphi.y) * cos(thetaphi.x), sin(thetaphi.y), cos(thetaphi.y) * sin(thetaphi.x));
+fragColor = texture(iChannel0, rayDirection);
+
+//
+https://en.wikibooks.org/wiki/Cg_Programming/Unity/Rotations
+
+//
+float3 a_coords_n = normalize(a_coords);
+float lon = atan2(a_coords_n.z, a_coords_n.x);
+float lat = acos(a_coords_n.y);
+float2 sphereCoords = float2(lon, lat) * (1.0 / PI);
+return float2(sphereCoords.x * 0.5 + 0.5, 1 - sphereCoords.y);
+
+//
+lon = u*2*pi
+lat = (v*2-1)*2*pi
+
+x = cos(lon)*cos(lat)
+y = sin(lon)*cos(lat)
+z = sin(lat)
+
+//
+https://medium.com/@onix_systems/how-to-use-360-equirectangular-panoramas-for-greater-realism-in-games-55fadb0547da
+
+//
+#define PI 3.1415926535897932384626433832795
+
+float map(float v, float low1, float high1, float low2, float high2) {
+	return (v - low1) / (high1 - low1) * (high2 - low2);
+}
+
+vec2 xyzToLonLat(vec3 v) {
+    vec3 p = normalize(v);
+    float lat = map(asin(p.y), PI*0.5, -PI*0.5, 0.0, 1.0);
+    float lon = map(atan(p.x, -p.z), PI, -PI, 0.0, 1.0);
+    return vec2(lon, lat);
+}
+
+vec3 lonLatToXYZ(vec2 lonLat) {
+  float lon = map(lonLat.x, 0.0, 1.0, -PI, PI);
+  float lat = map(lonLat.y, 0.0, 1.0, -PI*0.5, PI*0.5);
+  float x = sin(lat)*sin(lon);
+  float y = cos(lat);
+  float z = sin(lat)*cos(lon);
+  return vec3(x,y,z);
+}
+
+vec3 xRot(vec3 v, float theta) {
+  float x = v.x;
+  float y = v.y * cos(theta) - v.z * sin(theta);
+  float z = v.y * sin(theta) + v.z * cos(theta);
+  return vec3(x, y, z);
+}
+
+vec3 yRot(vec3 v, float theta) {
+  float x = v.z * sin(theta) + v.x * cos(theta);
+  float y = v.y;
+  float z = v.z * cos(theta) - v.x * sin(theta);
+  return vec3(x, y, z);
+}
+
+vec3 zRot(vec3 v, float theta) {
+  float x = v.x * cos(theta) - v.y * sin(theta);
+  float y = v.x * sin(theta) + v.y * cos(theta);
+  float z = v.z;
+  return vec3(x, y, z);
+}
+
+vec2 equiRemap(vec2 lonLat, vec2 delta) {
+    vec3 v = lonLatToXYZ(lonLat);
+	  v = yRot(v, delta.x);
+    v = xRot(v, delta.y);
+    return xyzToLonLat(v);
+}
+
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+    float graticuleSize = 0.05;
+    float graticuleWeight = 0.003;
+    //line to be visualised
+
+    //normalized lonLat
+    vec2 lonLat = fragCoord.xy / iResolution.xy;
+    lonLat = equiRemap(lonLat, vec2(0.0, 0.5));
+    fragColor = vec4(lonLat,0.0,1.0);
+    vec2 graticuleDist = mod(lonLat + vec2(graticuleWeight*0.5),vec2(graticuleSize));
+    if (graticuleDist.x < graticuleWeight || graticuleDist.y < graticuleWeight) {
+    	fragColor += vec4(0.5);
+    }
+    
+    //visualising a rhumb line, x is lon, y is lat
+    //normalized over 
+    vec2 p0 = vec2(0.0,0.0);
+    vec2 p1 = vec2(7.0,1.0);
+    float slope = (p1.y-p0.y)/(p1.x-p0.x);
+    float theta = atan(p1.y-p0.y,p1.x-p0.x);
+    float lineHalfWeight = 0.01*(1.0+cos(theta));
+    
+    bool b0 = atan(mod(lonLat.y,slope)-p0.y,lonLat.x-p0.x+lineHalfWeight) < theta;
+    bool b1 = atan(mod(lonLat.y,slope)-p0.y,lonLat.x-p0.x-lineHalfWeight) > theta;
+    if (b0 && b1 ){
+    	//fragColor = vec4(0.0, 0.0, 1.0, 1.0);
+    }
+}

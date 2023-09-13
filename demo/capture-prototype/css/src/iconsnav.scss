@@ -1,0 +1,66 @@
+.iconsnav {
+  margin-bottom: 10px;
+  background: #37474f;
+  width: 50px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  padding-top: 43px;
+  z-index: 80;
+}
+
+.iconsnav__list {
+  padding: 0;
+}
+
+.iconsnav__item {
+  width: 50px;
+  height: 50px;
+  background: none;
+  display: block;
+
+  &:hover .embed {
+    display: block;
+  }
+
+  &:hover .iconsnav__link-construction {
+    background: #e9e9e9 url("../../images/iconsnav.png") no-repeat -37px -37px;
+  }
+
+  &:hover .iconsnav__link-furniture {
+    background: #e9e9e9 url("../../images/iconsnav.png") no-repeat 13px -37px;
+  }
+
+  &:hover .iconsnav__link, .iconsnav__item-active .iconsnav__link {
+    background-color: #e9e9e9;
+  }
+}
+
+.iconsnav__item-active .embed {
+  display: block;
+}
+
+.iconsnav__item-active .iconsnav__link-construction {
+  background-color: #e9e9e9;
+  background-position: -37px -37px;
+}
+
+.iconsnav__item-active .iconsnav__link-furniture {
+  background-color: #e9e9e9;
+  background-position: 13px -37px;
+}
+
+.iconsnav__link {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.iconsnav__link-construction {
+  background: url("../../images/iconsnav.png") no-repeat -37px 13px;
+}
+
+.iconsnav__link-furniture {
+  background: url("../../images/iconsnav.png") no-repeat 13px 13px;
+}

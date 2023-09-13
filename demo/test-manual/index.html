@@ -1,0 +1,49 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Mocha tests of krpano three.js application</title>
+    <link href="../../node_modules/mocha/mocha.css" rel="stylesheet" />
+</head>
+
+<body>
+    <div id="mocha"></div>
+    <div id="krpanoSWFObject2" style="height: 320px; position: relative;">
+        <div class="svg" style="display: none;"></div>
+    </div>
+    <script src="../../capture-prototype/js/vendor/jquery-2.1.3.min.js"></script>
+    <script src="../../capture-prototype/js/vendor/jquery-ui-1.12.1/jquery-ui.min.js"></script>
+    <!-- jquery svg -->
+    <script src="../../capture-prototype/js/vendor/jquery.svg.min.js"></script>
+    <!-- test enviroment -->
+    <script src="../../node_modules/mocha/mocha.js"></script>
+    <script src="../../node_modules/chai/chai.js"></script>
+    <!-- application krpano -->
+    <script type="text/javascript" src="../../capture-prototype/js/src/2d/models/utils.js"></script>
+    <script type="text/javascript" src="../../capture-prototype/js/data/apartmentData.js"></script>
+    <script type="text/javascript" src="../../capture-prototype/js/src/pano-selector.js"></script>
+    <script type="text/javascript" src="../../capture-prototype/js/src/windows.js"></script>
+    <!-- three.js libs -->
+    <script type="text/javascript" src="../../capture-prototype/js/vendor/three/three.js"></script>
+    <script type="text/javascript" src="../../capture-prototype/js/vendor/three/ThreeCSG.js"></script>
+    <script type="text/javascript" src="../../capture-prototype/js/vendor/three/OBJExporter.js"></script>
+    <script type="text/javascript" src="../../capture-prototype/js/vendor/three/FileSaver.min.js"></script>
+    <script type="text/javascript" src="../../capture-prototype/js/vendor/three/three-OrbitControls.js"></script>
+    <!-- application three -->
+    <script type="text/javascript" src="../../capture-prototype/js/src/model3d.js"></script>
+    <script type="text/javascript" src="../../capture-prototype/js/src/merging3d.js"></script>
+    <script type="text/javascript" src="../../capture-prototype/js/src/merge-plugin.js"></script>
+    <script>
+    mocha.setup('bdd');
+    var assert = chai.assert;
+    </script>
+    <!-- tests files gone here -->
+    <script src="test/test.three-application.js"></script>
+    <script>
+    mocha.checkLeaks();
+    mocha.globals(['jQuery', 'model3d', 'merging3d', 'room']);
+    mocha.run();
+    </script>
+</body>
+
+</html>

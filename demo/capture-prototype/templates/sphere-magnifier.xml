@@ -1,0 +1,16 @@
+<krpano onstart="" showerrors="true" debugmode="true">
+
+    <control mousetype="drag2d" touchtype="drag2d"/>
+    
+    <scene name="changed">
+        <image>
+            <sphere url="" />
+        </image>
+    </scene>
+
+    <action name="setimage">
+        set(scene[changed].content, "<image prealign="%2|0|%3"><sphere url="%1"/></image>");
+        loadscene('changed');
+    </action>
+
+</krpano>

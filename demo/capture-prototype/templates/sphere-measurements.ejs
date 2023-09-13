@@ -1,0 +1,28 @@
+<krpano onstart="" showerrors="true" debugmode="true">
+
+<control mousetype="drag2d" touchtype="drag2d"/>
+
+<% if (scenes) { %>
+    <% for (var index in scenes) { %>
+        <scene name="<%=scenes[index].name.toLowerCase()%>">
+            <image prealign="<%=-scenes[index].pitch%>|<%=-scenes[index].yaw%>|<%=-scenes[index].roll%>">
+                <sphere devices="desktop" url="<%=scenes[index].url%><%=Math.ceil(Math.random() * 9999999)%>"/>
+                <sphere devices="tablet" url="<%=scenes[index].url%><%=Math.ceil(Math.random() * 9999999)%>"/>
+                <sphere devices="mobile" url="<%=scenes[index].urlMobile%><%=Math.ceil(Math.random() * 9999999)%>"/>
+            </image>
+        </scene>
+    <% } %>
+<% } %>
+
+<scene name="default">
+    <image>
+        <sphere url="" />
+    </image>
+</scene>
+
+<action name="setimage">
+    set(scene[default].content, "<image prealign="%2|0|%3"><sphere url="%1"/></image>");
+    loadscene('default');
+</action>
+
+</krpano>

@@ -1,0 +1,104 @@
+
+apartmentData = {
+
+    "R00102229333.JPG":{
+        "name":"Estudio 2",
+        "filename":"R00102229333.JPG",
+        "url":"https://clipnow.s3.amazonaws.com/users/Ide_Jone/5889e1d5af41d433fb55fe8b/Tour/original-images/R00102229333.JPG",
+        "plan":-3,
+        "compass":112.5,
+        "hotspots":[
+            {
+                "hotspotVPos":-1.0724105834960938,
+                "hotspotHPos":-67.42778778076172,
+                "namePanorama":"Baño",
+                "filenamePanorama":"R00102277054.JPG",
+                "target":"R00102277054.JPG",
+                "hotspotXMLName":"spot-sceneR00102277054-_-JPG_idx_0",
+                "previweUrl":"https://clipnow.s3.amazonaws.com/users/Ide_Jone/5889e1d5af41d433fb55fe8b/Tour/1080-images/R00102277054.JPG",
+                "hotspotHPosRef":0.0
+            },
+            {
+                "hotspotVPos":37.86434555053711,
+                "hotspotHPos":110.83906555175781,
+                "namePanorama":"Salón 1",
+                "filenamePanorama":"R00102236982.JPG",
+                "target":"R00102236982.JPG",
+                "hotspotXMLName":"spot-sceneR00102236982-_-JPG_idx_0",
+                "previweUrl":"https://clipnow.s3.amazonaws.com/users/Ide_Jone/5889e1d5af41d433fb55fe8b/Tour/1080-images/R00102236982.JPG",
+                "hotspotHPosRef":-169.7661590576172
+            },
+            {
+                "hotspotVPos":17.73602294921875,
+                "hotspotHPos":-26.65749740600586,
+                "namePanorama":"Entrada",
+                "filenamePanorama":"R00102190230.JPG",
+                "target":"R00102190230.JPG",
+                "hotspotXMLName":"spot-sceneR00102190230-_-JPG_idx_0",
+                "previweUrl":"https://clipnow.s3.amazonaws.com/users/Ide_Jone/5889e1d5af41d433fb55fe8b/Tour/1080-images/R00102190230.JPG",
+                "hotspotHPosRef":116.6162338256836
+            }
+        ]
+    },
+    "R00102236982.JPG":{
+        "name":"Salón 1",
+        "filename":"R00102236982.JPG",
+        "url":"https://clipnow.s3.amazonaws.com/users/Ide_Jone/5889e1d5af41d433fb55fe8b/Tour/original-images/R00102236982.JPG",
+        "urlMobile":"https://clipnow.s3.amazonaws.com/users/Ide_Jone/5889e1d5af41d433fb55fe8b/Tour/1606-images/R00102236982.JPG",
+        "thumbnail":"https://clipnow.s3.amazonaws.com/users/Ide_Jone/5889e1d5af41d433fb55fe8b/Tour/150-images/R00102236982.JPG",
+        "plan":-3,
+        "cubePatternDesktop":"https://clipnow.s3.amazonaws.com/users/Ide_Jone/5889e1d5af41d433fb55fe8b/Tour/R00102236982_%s.JPG",
+        "cubePatternMobile":"https://clipnow.s3.amazonaws.com/users/Ide_Jone/5889e1d5af41d433fb55fe8b/Tour/1606-images/R00102236982_%s.JPG",
+        "compass":225.0,
+        "limitedAccess":false,
+        "isFirst":false,
+        "hotspots":[
+            {
+                "hotspotVPos":10.876258850097656,
+                "hotspotHPos":-169.7661590576172,
+                "namePanorama":"Estudio 2",
+                "filenamePanorama":"R00102229333.JPG",
+                "target":"R00102229333.JPG",
+                "hotspotXMLName":"spot-sceneR00102229333-_-JPG_idx_0",
+                "previweUrl":"https://clipnow.s3.amazonaws.com/users/Ide_Jone/5889e1d5af41d433fb55fe8b/Tour/1080-images/R00102229333.JPG",
+                "hotspotHPosRef":110.83906555175781
+            }
+        ]
+    },
+    "R00102277054.JPG":{
+        "name":"Baño",
+        "filename":"R00102277054.JPG",
+        "url":"https://clipnow.s3.amazonaws.com/users/Ide_Jone/5889e1d5af41d433fb55fe8b/Tour/original-images/R00102277054.JPG",
+        "compass":135.0,
+        "hotspots":[
+            {
+                "hotspotVPos":47.43354797363281,
+                "hotspotHPos":114.47042846679688,
+                "namePanorama":"Cocina 2",
+                "filenamePanorama":"R00102229333.JPG",
+                "target":"R00102229333.JPG",
+                "hotspotXMLName":"spot-sceneR00102283623-_-JPG_idx_0",
+                "previweUrl":"https://clipnow.s3.amazonaws.com/users/Ide_Jone/5889e1d5af41d433fb55fe8b/Tour/1080-images/R00102283623.JPG",
+                "hotspotHPosRef":-171.08665466308594
+            }
+        ]
+    },
+    "R00102190230.JPG":{
+        "name":"Entrada",
+        "filename":"R00102190230.JPG",
+        "url":"https://clipnow.s3.amazonaws.com/users/Ide_Jone/5889e1d5af41d433fb55fe8b/Tour/original-images/R00102190230.JPG",
+        "compass":135.0,
+        "hotspots":[
+            {
+                "hotspotVPos":25.985334396362305,
+                "hotspotHPos":116.6162338256836,
+                "namePanorama":"Estudio 2",
+                "filenamePanorama":"R00102229333.JPG",
+                "target":"R00102229333.JPG",
+                "hotspotXMLName":"spot-sceneR00102229333-_-JPG_idx_0",
+                "previweUrl":"https://clipnow.s3.amazonaws.com/users/Ide_Jone/5889e1d5af41d433fb55fe8b/Tour/1080-images/R00102229333.JPG",
+                "hotspotHPosRef":-26.65749740600586
+            }
+        ]
+    }
+};

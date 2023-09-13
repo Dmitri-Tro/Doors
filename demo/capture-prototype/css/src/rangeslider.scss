@@ -1,0 +1,14 @@
+.rangeslider {
+  position: relative;
+}
+.rangeslider__label {
+  position: absolute;
+  color: rgba(0,0,0,0.7);
+  text-align: center;
+  width: 100%;
+  font-size: 14px;
+  padding-top: 1px;
+}
+.rangeslider__input {
+  position: relative;
+}

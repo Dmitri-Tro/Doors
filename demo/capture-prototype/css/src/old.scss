@@ -1,0 +1,124 @@
+/* styles from first version */
+@-ms-viewport {
+  width: device-width;
+}
+
+@media only screen and (min-device-width:800px) {
+  html {
+    overflow: hidden;
+  }
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 16px;
+  color: #FFFFFF;
+  background-color: #000000;
+}
+
+a {
+  color:#FFFFFF;
+}
+
+.interface-elements {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  white-space: nowrap;
+  z-index: 10;
+}
+
+.marker-magnifier {
+  right: 125px;
+  top: 125px;
+  position: absolute;
+  z-index: 255;
+}
+
+#pano {
+  width: 100%;
+  height: 100%;
+}
+
+#pano > noscript > table,
+#panoMagnifier > noscript > table {
+  width: 100%;
+  height: 100%;
+}
+
+#pano > noscript > table > tr,
+#panoMagnifier > noscript > table > tr {
+  vertical-align: middle;
+  text-align: center;
+}
+
+#panoMagnifier {
+  right: 0;
+  position: absolute;
+  z-index: 254;
+  width: 250px;
+  height: 250px;
+  border-color: white;
+  border-style: solid;
+  border-width: 1px;
+}
+
+.exportContainer,
+.remergingContainer,
+.mergingContainer {
+  display: inline-block;
+}
+
+.exportContainer span.glyphicon,
+.mergingContainer > button > span {
+  margin: 0 4px 0 0;
+}
+
+.resize-icon-of-hole {
+  cursor: se-resize !important;
+  z-index: 1 !important;
+}
+
+.close-icon-of-hole {
+  z-index: 1 !important;
+}
+
+.room-selector-label {
+  color: #000;
+  font-weight: normal;
+  width: 70%;
+  margin: 0 0 0 10px;
+}
+
+.stove-btn-wrapper{
+  position: relative;
+  display: inline-block;
+  width: auto;
+  height: auto;
+}
+
+.svg {
+  /*  width: 320px;
+    height: 240px;
+    position: absolute;
+    margin: 0 auto 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 1px solid rgba( 255, 0, 0, 0.2 );
+    z-index: 1;*/
+  background: white;
+  display: none;
+}
+
+.btn-primary {
+  //background: $blue !important;
+}

@@ -1,0 +1,21 @@
+/* BEGIN Regular */
+$FontPath: "../../fonts" !default;
+$FontName: "Roboto" !default;
+$FontVersion: "2.137" !default;
+
+@font-face {
+	font-family: Roboto;
+	@include fontdef-woff($FontPath, $FontName, $FontVersion, "Regular");
+	font-weight: 400;
+	font-style: normal;
+}
+@font-face {
+	font-family: Roboto;
+	@include fontdef-woff($FontPath, $FontName, $FontVersion, "Regular");
+	font-weight: normal;
+	font-style: normal;
+}
+/* END Regular */
+
+@import "fontawesome/fontawesome";
+@import "fontawesome/solid";

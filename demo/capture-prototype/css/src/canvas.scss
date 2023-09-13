@@ -1,0 +1,30 @@
+.canvas {
+  width: 100%;
+  cursor: url("../../images/default-cursor.png"), default;
+}
+.canvas_mode-rotate {
+  cursor: url("../../images/rotate-cursor.png"), move;
+}
+.canvas_mode-draw {
+  cursor: url("../../images/copy-cursor.png"), copy;
+}
+.canvas_mode-delete {
+  cursor: url("../../images/delete-cursor.png"), pointer;
+}
+.canvas_sresize {
+  cursor: s-resize !important;
+}
+.canvas_seresize {
+  cursor: se-resize !important;
+}
+.canvas_eresize {
+  cursor: e-resize !important;
+}
+
+.canvas_compass {
+  position: absolute;
+  top: 70px;
+  left: 70px;
+  width: 62px;
+  height: 62px;
+}

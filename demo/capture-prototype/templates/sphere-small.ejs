@@ -1,0 +1,69 @@
+<krpano onstart="startup" showerrors="true" debugmode="true">
+
+	<control mousetype="drag2d" touchtype="drag2d" zoomtocursor="true" zoomoutcursor="true"/>
+
+    <% var firstSceneId = Object.keys(window.apartmentData)[0].replace(".JPG", "");%>
+    <% for (var key in window.apartmentData) {%>
+        <%if(window.apartmentData.hasOwnProperty(key)) { %>
+            <% var room = window.apartmentData[key];%>
+            <scene name='<%=room.filename.replace(".JPG", "")%>'>
+                <image>
+                    <sphere devices="tablet|desktop" url="<%=room.url%>" />
+                    <sphere devices="mobile" url="<%=room.urlMobile%>" />
+                </image>
+                <view fovmin="40" fovmax="120" fov="90" hlookat="0" vlookat="0"  limitview="range"
+                        <% if(room.hlookatmin != null){%> hlookatmin="<%=room.hlookatmin%>" <%}%>
+                        <% if(room.hlookatmax != null){%> hlookatmax="<%=room.hlookatmax%>" <%}%>
+                        <% if(room.vlookatmin != null){%> vlookatmin="<%=room.vlookatmin%>" <%}%>
+                        <% if(room.vlookatmax != null){%> vlookatmax="<%=room.vlookatmax%>" <%}%>
+                />
+                <% if(room.hotspots != null){ %>
+                    <% room.hotspots.forEach(function(hotspot) { %>
+                        <%if(hotspot.namePanorama != null && hotspot.namePanorama !== ""){ %>
+                        <hotspot
+                                type="image"
+                                url="images/pano/target.png"
+                                keep="false"
+                                visible="true"
+                                enabled="true"
+                                handcursor="true"
+                                alpha="0.7"
+                                scale="1"
+                                name="<%=hotspot.hotspotXMLName%>"
+                                hlookat="<%=hotspot.hotspotHPosRef%>"
+                                ath="<%=hotspot.hotspotHPos%>"
+                                atv="<%=hotspot.hotspotVPos%>"
+                                onclick="looktohotspot(<%=hotspot.hotspotXMLName%>); loadscene('<%=hotspot.filenamePanorama.replace(".JPG", "")%>'); js(window.panoSelector.changeBasePoint('<%=hotspot.filenamePanorama.replace(".JPG", "")%>')); js(window.pluginCell.changeSceneSmallAfterHandler('<%=hotspot.filenamePanorama.replace(".JPG", "")%>')); reloadpano();"
+                                >
+                        </hotspot>
+
+                        <% } %>
+                    <% }); %>
+                <% } %>
+                <% if(room.attachments != null){ %>
+                    <% room.attachments.forEach(function(hotspot) { %>
+                        <hotspot
+                                type="image"
+                                url="images/pano/target.png"
+                                keep="false"
+                                visible="true"
+                                enabled="true"
+                                handcursor="true"
+                                alpha="0.7"
+                                scale="1"
+                                name="<%=hotspot.hotspotXMLName%>"
+                                hlookat="<%=hotspot.hotspotHPosRef%>"
+                                ath="<%=hotspot.xPos%>"
+                                atv="<%=hotspot.yPos%>"
+                                onclick="looktohotspot(<%=hotspot.hotspotXMLName%>); loadscene('<%=hotspot.content[0].linkedRoom.replace(".JPG", "")%>'); js(window.panoSelector.changeBasePoint('<%=hotspot.content[0].linkedRoom.replace(".JPG", "")%>')); js(window.pluginCell.changeSceneSmallAfterHandler('<%=hotspot.content[0].linkedRoom.replace(".JPG", "")%>')); reloadpano();"
+                        >
+                        </hotspot>
+                    <% }); %>
+                <% } %>
+            </scene>
+        <% } %>
+    <% } %>
+
+    <action name="startup">loadscene('<%=firstSceneId%>');</action>
+</krpano>
+

@@ -1,0 +1,16 @@
+.overlay-settings {
+  display: none;
+  position: absolute;
+  bottom: 20px;
+  left: 65px;
+}
+.overlay-settings_visible {
+  display: block;
+}
+.overlay-settings__item {
+  margin: 0 10px 5px;
+}
+.overlay-settings__label {
+  display: block;
+  margin: 0 auto;
+}

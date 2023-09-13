@@ -1,0 +1,185 @@
+.controls {
+    position: absolute;
+    right: 5px;
+    overflow: auto;
+    width: 250px;
+    // border-radius: 5px;
+
+    &#{&}_measurements-height {
+        top: 260px;
+        bottom: 260px;
+    }
+
+    &#{&}_auto-height {
+        top: 5px;
+        right: 5px;
+        bottom: 5px;
+    }
+  
+    &__label {
+        // border: 1px solid black;
+        padding: 5px;
+        background-color: #337AB7;
+        font-weight: 600;
+        position: relative;
+        cursor: pointer;
+        transition: 1s;
+        flex-grow: 1;
+
+        &_disabled {
+            background-color: #a2a2a2 !important;
+            color: #dadada !important;
+        }
+
+        &_hidden {
+            background-color: #286090;
+            color: #44a9ff;
+        }
+
+        &_clickable {
+            cursor: pointer;
+        } 
+    }
+
+    &__element-label {
+        font-size: 12px;
+    }
+
+    &__element-button-group {
+        width: 75%;
+        display: flex;
+        
+        & label {
+            flex-grow: 1;
+        }
+    }
+
+    &__item {
+
+    }
+
+    &__element {
+        padding: 5px 5px;
+        display: flex;
+        flex-direction: column;
+        
+        &_flex {
+            display: inline-flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        &_checkbox {
+            flex-direction: row;
+            justify-content: space-between;
+        }
+    }
+
+    &__body {
+        padding: 5px 5px;
+        color: black;
+        background-color: rgba($color: #ffffff, $alpha: 0.7);
+    }
+
+    &__checkbox {
+        
+    }
+
+    &__select {
+        background-color: #ffffff;
+        color: black;
+        margin-bottom: 5px;
+        height: auto;
+        &#{&}_w60 {
+            width: 60%;
+        }
+    }
+
+    &__brush-select {
+        background-color: #ffffff;
+        color: black;
+    }
+
+    &__brush-button {
+        margin: 4px 2px 0px 2px;
+        height: 67px;
+        width: 67px;
+        background-position: center;
+        background-size: cover;
+        font-size: 16px;
+        font-weight: bold;
+        color: #fff;
+        text-align: left;
+        text-shadow: 0px 0px 10px #000;
+        text-transform: capitalize;
+        padding: 0px 0px 50px 4px;
+
+        &.active {
+            box-shadow: inset 0px 0px 0px 5px #337AB7;
+        }
+    }
+
+    &__input {
+        background-color: #ffffff;
+        color: black;
+        margin-bottom: 5px;
+        height: auto;
+        border: none;
+        flex-grow: 0;
+        
+        &_width-small{
+            width: 50px;
+        }
+
+        &_width-medium{
+            width: 70px;
+        }
+
+        &_width-large{
+            width: 100px;
+        }
+        
+        &#{&}_w30 {
+            width: 30%;
+        }
+    }
+
+    &__color {
+        margin-bottom: 5px;
+        height: 25px;
+        border: none;
+        display: block;
+    }
+
+    &__toggler {
+        position: absolute;
+        right: 5px;
+        top: 5px;
+    }
+
+    &__button {
+        text-align: left;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        &_width-1 {
+            width: 100%;
+        }
+
+        &_width-2 {
+            width: 49%;
+        }
+    }
+
+    &__button-group {
+        &[disabled] {
+            display: none;
+        }
+    }
+
+    &__hr {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+}

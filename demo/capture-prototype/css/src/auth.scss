@@ -1,0 +1,18 @@
+.auth {}
+.auth__logo {
+  display: block;
+  width: 100%;
+  background: #007daf;
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+.auth__logoimage {
+  display: block;
+  width: 70%;
+  max-width: 300px;
+  margin: 0 auto;
+}
+.auth__message {
+  display: none;
+  color: #ff0000;
+}

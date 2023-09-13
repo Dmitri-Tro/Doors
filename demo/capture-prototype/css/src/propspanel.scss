@@ -1,0 +1,95 @@
+.propspanel {
+  width: 270px;
+  min-height: 60px;
+  border: 1px solid #37474f;
+  margin: 0;
+  position: absolute;
+  left: 65px;
+  top: 60px;
+  background: #37474f;
+  opacity: 0.9;
+  overflow-y: auto;
+  max-height: 90vh;
+}
+.propspanel__header {
+  height: 35px;
+  width: 100%;
+  padding: 0 32px;
+  position: relative;
+}
+.propspanel__title {
+  color: #fff;
+  font-size: 16px;
+  line-height: 35px;
+  font-family: Roboto, sans-serif;
+  display: inline-block;
+}
+.propspanel__close {
+  display: block;
+  color: #fff;
+  position: absolute;
+  right: 8px;
+  top: 7px;
+  font-size: 16px;
+
+  &:hover, &:active, &:visited {
+    color: #fff;
+  }
+}
+.propspanel__form {
+  padding: 0 12px 10px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+.propspanel__group {
+  display: inline-block;
+  width: 100%;
+  position: relative;
+}
+.propspanel__group_disabled {
+  opacity: 0.5;
+  pointer-events: none;
+}
+.propspanel__item {}
+.propspanel__item-title {
+  font-size: 11px;
+  font-weight: normal;
+  font-family: Roboto, sans-serif
+}
+.propspanel__item-input {
+  color: #fff;
+}
+.propspanel__item-title {
+  color: #fff;
+}
+.propspanel__btn-group {
+  width: 100%;
+}
+.propspanel__toggler {
+  padding: 6px 8px;
+}
+.propspanel__addcamera {
+  color: #fff;
+  text-align: center;
+  text-decoration: underline;
+  display: block;
+  margin: 0 auto;
+}
+.propspanel__addcamera:hover {
+  color: #e3e3e3;
+}
+.propspanel__select, .propspanel__select:focus {
+  display: block;
+  border-width: 0 0 1px;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  border-radius: 0;
+  padding-left: 0;
+}
+.propspanel__option {
+  color: #000;
+  font-size: 14px;
+}

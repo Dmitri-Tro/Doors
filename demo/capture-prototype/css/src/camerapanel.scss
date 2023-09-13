@@ -1,0 +1,32 @@
+.camerapanel {
+  display: block;
+  width: 100%;
+}
+.camerapanel__list {}
+.camerapanel__list-item {
+  background: none;
+  cursor: pointer;
+}
+.camerapanel__roomname {}
+.camerapanel__rotate {
+  font-size: 14px;
+  margin-right: 6px;
+}
+.camerapanel__rotate_last {
+  margin-right: 0;
+}
+.camerapanel__rotate:hover, .camerapanel__rotate:active, .camerapanel__rotate:focus {
+  color: #dbdbdb;
+}
+.camerapanel__dropdown {
+  color: #000;
+  font-size: 14px;
+
+  .dropdown-menu { //bootstrap style
+    max-height: 200px;
+    overflow-x: hidden;
+  }
+}
+.camerapanel__helper {
+  font-size: 12px;
+}
