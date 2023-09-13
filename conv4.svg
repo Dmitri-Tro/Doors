@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:ev="http://www.w3.org/2001/xml-events" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" height="114px" version="1.1" viewBox="0 0 39.3 7.4" width="600px">
+	<defs/>
+	<path class="cls-2" d="M 0.0,0.0 L 39.3,0.0 L 39.3,7.4 L 0.0,7.4 L 0.0,0.0" fill="var(--main-color2)" height="7.4" id="WallBack" width="39.3" x="0"/>
+	<path class="cls-1" d="M 0.25,0.25 L 39.05,0.25 L 39.05,7.15 L 0.25,7.15 L 0.25,0.25" fill="var(--main-color5)" height="6.9" id="WallInner" width="38.8" x=".25" y=".25"/>
+	<path class="cls-2" d="M 0.25,2.85 L 39.05,2.85 L 39.05,4.55 L 0.25,4.55 L 0.25,2.85" fill="var(--main-color2)" height="1.7" id="Glassback" width="38.8" x=".25" y="2.85"/>
+	<path class="cls-3" d="M 1.95,2.85 L 37.35,2.85 L 37.35,4.55 L 1.95,4.55 L 1.95,2.85" fill="var(--main-color)" height="1.7" id="GlassInner" width="35.4" x="1.95" y="2.85"/>
+</svg>
